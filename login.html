@@ -2,30 +2,347 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Daily Contribution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Login — Daily Contribution</title>
+    <!-- optional favicon (same as signup) -->
+    <link rel="shortcut icon" href="lani-removebg-preview.png" type="image/x-icon">
+    <style>
+        /* ===== RESET & GLOBAL (mirror signup style) ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #0b1f0b 0%, #0a0f0a 100%);
+            position: relative;
+            padding: 1rem;
+        }
+
+        /* ---------- ANIMATED GREEN & BLACK BACKGROUND (same as signup) ---------- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .animated-bg span {
+            position: absolute;
+            display: block;
+            width: 6px;
+            height: 6px;
+            background: rgba(40, 180, 70, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #2ecc71, 0 0 30px #27ae60;
+            animation: greenPulse 8s linear infinite;
+            bottom: -10%;
+            opacity: 0.4;
+        }
+
+        /* floating particles – black & green tones */
+        .animated-bg span:nth-child(1) { left: 5%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 14s; background: radial-gradient(circle, #1e4b1e, #0f2b0f); box-shadow: 0 0 30px #1e7e34; }
+        .animated-bg span:nth-child(2) { left: 15%; width: 120px; height: 120px; animation-delay: 2s; animation-duration: 20s; background: radial-gradient(circle, #2b532b, #0f1f0f); box-shadow: 0 0 40px #229954; }
+        .animated-bg span:nth-child(3) { left: 30%; width: 45px; height: 45px; animation-delay: 4s; animation-duration: 18s; background: #117711; opacity: 0.25; box-shadow: 0 0 35px #2ecc71; }
+        .animated-bg span:nth-child(4) { left: 55%; width: 200px; height: 200px; animation-delay: 1s; animation-duration: 25s; background: radial-gradient(circle at 30% 30%, #0a3d0a, #051005); box-shadow: 0 0 60px #145a32; }
+        .animated-bg span:nth-child(5) { left: 70%; width: 70px; height: 70px; animation-delay: 3s; animation-duration: 16s; background: #0f4f0f; opacity: 0.4; box-shadow: 0 0 25px #239b56; }
+        .animated-bg span:nth-child(6) { left: 85%; width: 150px; height: 150px; animation-delay: 5s; animation-duration: 22s; background: radial-gradient(circle, #0e4e0e, #062006); box-shadow: 0 0 50px #186a3b; }
+        .animated-bg span:nth-child(7) { left: 92%; width: 40px; height: 40px; animation-delay: 0.5s; animation-duration: 12s; background: #1c811c; box-shadow: 0 0 30px #27ae60; }
+        .animated-bg span:nth-child(8) { left: 40%; width: 90px; height: 90px; animation-delay: 3.7s; animation-duration: 19s; background: #0b420b; box-shadow: 0 0 40px #1e8449; }
+        .animated-bg span:nth-child(9) { left: 10%; width: 180px; height: 180px; animation-delay: 0.2s; animation-duration: 30s; background: radial-gradient(circle at 70% 70%, #145214, #031003); box-shadow: 0 0 80px #0e5a1e; }
+        .animated-bg span:nth-child(10) { left: 75%; width: 60px; height: 60px; animation-delay: 6s; animation-duration: 15s; background: #22a322; opacity: 0.25; box-shadow: 0 0 45px #2ecc71; }
+
+        @keyframes greenPulse {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.2;
+                filter: blur(2px);
+            }
+            50% {
+                transform: translateY(-70vh) scale(1.3) rotate(180deg);
+                opacity: 0.7;
+                filter: blur(6px);
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.8) rotate(360deg);
+                opacity: 0;
+                filter: blur(12px);
+            }
+        }
+
+        /* additional geometric moving gradient (green/black overlay) */
+        .bg-move {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(30, 90, 30, 0.15), transparent 40%),
+                        repeating-linear-gradient(45deg, #0b1f0b 0px, #0b1f0b 20px, #0c260c 20px, #0c260c 40px);
+            animation: slide 28s linear infinite;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-15%, -15%) rotate(3deg); }
+        }
+
+        /* ===== MAIN CARD (consistent with signup) ===== */
+        h2, form, p {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        h2 {
+            color: #d4f2d4;
+            font-size: clamp(2rem, 8vw, 2.5rem);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px #1abc1a, 0 0 20px #0f740f;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(2px);
+            padding: 0 10px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        form {
+            background: rgba(10, 20, 5, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(70, 200, 70, 0.35);
+            border-radius: 36px;
+            padding: 1.8rem 1.5rem;
+            width: 100%;
+            box-shadow: 0 25px 50px -8px rgba(0, 30, 0, 0.8), 0 0 0 1px rgba(30, 200, 30, 0.2) inset, 0 0 30px rgba(0, 255, 0, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* slight hover only on non-touch devices */
+        @media (hover: hover) {
+            form:hover {
+                box-shadow: 0 30px 60px -8px #0f3f0f, 0 0 0 1px #33cc33 inset, 0 0 50px #2ecc71;
+            }
+        }
+
+        fieldset {
+            border: 1px solid #2e7d32;
+            border-radius: 28px;
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 15, 0, 0.3);
+        }
+
+        legend {
+            background: #1e4a1e;
+            color: #d0f0c0;
+            font-weight: 600;
+            padding: 0.4rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid #44b344;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(3px);
+            white-space: nowrap;
+        }
+
+        label {
+            display: inline-block;
+            color: #bef5be;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            margin-left: 0.6rem;
+            font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+            text-shadow: 0 2px 5px black;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: #172517;
+            border: 1px solid #2b672b;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: #e2ffe2;
+            outline: none;
+            transition: 0.2s;
+            box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.7), 0 2px 5px rgba(0, 80, 0, 0.3);
+            margin-bottom: 1.2rem;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input:focus {
+            border-color: #45e645;
+            background: #1e331e;
+            box-shadow: 0 0 15px #2ecc71, inset 0 2px 8px black;
+        }
+
+        input::placeholder {
+            color: #698a69;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* remove extra <br> spacing */
+        form br {
+            display: none;
+        }
+
+        /* specific adjustment for last input */
+        #password {
+            margin-bottom: 0.2rem;
+        }
+
+        /* button */
+        button {
+            background: linear-gradient(155deg, #0f4f0f, #092009);
+            border: 1px solid #1eb81e;
+            color: #e0ffe0;
+            font-size: clamp(1.4rem, 6vw, 1.7rem);
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            width: 100%;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #0a350a, 0 10px 25px black, 0 0 30px #25b525;
+            transition: all 0.08s linear;
+            text-transform: uppercase;
+            margin: 0.5rem 0 1rem 0;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+        }
+
+        button:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #0f3b0f, 0 8px 20px black;
+        }
+
+        /* hover only for non-touch */
+        @media (hover: hover) {
+            button:hover {
+                background: linear-gradient(155deg, #178017, #0d3f0d);
+                border-color: #5bf05b;
+                text-shadow: 0 0 10px #a0ffa0;
+            }
+        }
+
+        p {
+            color: #b3e6b3;
+            font-size: clamp(1rem, 3.8vw, 1.1rem);
+            margin-top: 1.5rem;
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            background: rgba(0, 20, 0, 0.3);
+            border: 1px solid #3c963c;
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        a {
+            color: #adffad;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #23b523;
+            padding-bottom: 2px;
+            transition: 0.2s;
+            word-break: break-word;
+        }
+
+        @media (hover: hover) {
+            a:hover {
+                color: white;
+                border-bottom-color: #00ff80;
+                text-shadow: 0 0 8px #00ee80;
+            }
+        }
+
+        /* minor mobile spacing adjustments */
+        @media (max-width: 400px) {
+            form {
+                padding: 1.4rem 1.2rem;
+            }
+            fieldset {
+                padding: 1.2rem 0.8rem 0.8rem 0.8rem;
+            }
+            legend {
+                padding: 0.3rem 1rem;
+            }
+            input {
+                padding: 0.8rem 1rem;
+            }
+            button {
+                padding: 0.7rem 1rem;
+            }
+        }
+
+        /* improve tap targets */
+        input, button, a, legend {
+            touch-action: manipulation;
+        }
+
+        /* fix for very small screens */
+        @media (max-width: 320px) {
+            h2 {
+                font-size: 1.8rem;
+            }
+            legend {
+                font-size: 1rem;
+                white-space: normal;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h2>Login to Your Account</h2>
+    <!-- same animated green & black background elements -->
+    <div class="animated-bg">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="bg-move"></div>
 
-<form action="dashboard.html" method="get">
+    <h2>🔐 LOGIN</h2>
 
-    <fieldset>
-        <legend>Account Login</legend>
+    <form action="dashboard.html" method="get">
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <fieldset>
+            <legend>👤 Account Login</legend>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-    </fieldset>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="hello@dailycontrib.ng" required>
 
-    <br>
-    <button type="submit">Login</button>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+        </fieldset>
 
-</form>
+        <button type="submit">Login</button>
 
-<p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </form>
+
+    <p>🆕 Don't have an account? <a href="signup.html">Sign up here</a></p>
 
 </body>
 </html>
