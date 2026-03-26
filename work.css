@@ -231,7 +231,7 @@ button {
 .header_section {
     width: 100%;
     float: left;
-    background-color: #f9b116;
+    background-color: #bde38a;
     height: auto;
     background-size: 100%;
 }
@@ -282,7 +282,7 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(image_1_1773832812757.jpg);
+    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 131, 0.8)), url(image_1_1773832812757.jpg);
     height: auto;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -322,7 +322,7 @@ button {
     float: left;
     font-size: 16px;
     color: #ffffff;
-    background-color: #f9b116;
+    background-color: #8ce053;
     padding: 12px 0px;
     text-align: center;
     border-radius: 4px;
@@ -392,7 +392,7 @@ button {
     width: 50px;
     left: 0px;
     right: 0px;
-    background-color: #f9b116;
+    background-color: #9de04a;
     height: 10px;
     bottom: 0px;
     margin: 0 auto;
@@ -403,7 +403,7 @@ button {
 
 .service_box {
     width: 100%;
-    background-color: #f9b116;
+    background-color: #9de04a;
     height: auto;
     padding: 40px 20px;
     border-radius: 10px;
@@ -465,12 +465,12 @@ button {
 
 .readmore_bt a:hover {
     color: #fcfcfd;
-    background-color: #f9b116;
+    background-color: #9de04a;
 }
 
 .readmore_bt.active a {
     color: #fcfcfd;
-    background-color: #f9b116;
+    background-color: #9de04a;
 }
 
 
@@ -499,7 +499,7 @@ button {
     position: absolute;
     width: 100px;
     left: 0px;
-    background-color: #f9b116;
+    background-color: #9de04a;
     height: 10px;
     bottom: 0px;
     right: 0px;
@@ -548,7 +548,7 @@ button {
     float: left;
     font-size: 16px;
     color: #fcfcfd;
-    background-color: #f9b116;
+    background-color: #9de04a;
     text-align: center;
     padding: 12px 0px;
     border-radius: 5px;
@@ -626,7 +626,7 @@ button {
     position: absolute;
     width: 180px;
     height: 214px;
-    border: 2px solid #f9b116;
+    border: 2px solid #9de04a;
     left: 0px;
     top: 0px;
     z-index: -1;
@@ -671,7 +671,7 @@ button {
 #my_slider .carousel-control-next {
     width: 50px;
     height: 50px;
-    background: #f9b116;
+    background: #9de04a;
     opacity: 1;
     font-size: 30px;
     color: #ffffff;
@@ -734,7 +734,7 @@ button {
     float: left;
     font-size: 16px;
     color: #ffffff;
-    background-color: #f9b116;
+    background-color: #9de04a;
     padding: 10px 0px;
     text-align: center;
     border-radius: 5px;
@@ -757,7 +757,7 @@ button {
     float: left;
     font-size: 16px;
     color: #ffffff;
-    background-color: #f9b116;
+    background-color: #9de04a;
     padding: 10px 0px;
     text-align: center;
     border-radius: 5px;
@@ -840,7 +840,7 @@ button {
 .send_bt a {
     width: 100%;
     float: left;
-    background-color: #f9b116;
+    background-color: #9de04a;
     color: #fefeff;
     text-align: center;
     padding: 12px 0px;
@@ -918,11 +918,11 @@ button {
 }
 
 .footer_menu li a:hover {
-    color: #f9b116;
+    color: #9de04a;
 }
 
 .footer_menu li.active a {
-    color: #f9b116;
+    color: #9de04a;
 }
 
 .Enter_text {
@@ -951,7 +951,7 @@ input.Enter_text::placeholder {
     float: left;
     font-size: 18px;
     color: #f8f8f8;
-    background-color: #f9b116;
+    background-color: #9de04a;
     text-align: center;
     padding: 12px 0px;
     text-transform: uppercase;
@@ -989,7 +989,7 @@ input.Enter_text::placeholder {
 }
 
 .social_icon li a:hover {
-    color: #f9b116;
+    color: #9de04a;
 }
 
 
@@ -1018,7 +1018,7 @@ input.Enter_text::placeholder {
 }
 
 .copyright_text a:hover {
-    color: #f9b116;
+    color: #9de04a;
 }
 
 .margin_top_90 {
