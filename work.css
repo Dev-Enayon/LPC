@@ -492,67 +492,69 @@ button {
     font-weight: 800;
     text-align: center;
     text-transform: uppercase;
+    position: relative;
 }
 
 .about_taital::after {
     content: '';
     position: absolute;
     width: 100px;
-    left: 0px;
-    background-color: #9de04a;
-    height: 10px;
-    bottom: 0px;
-    right: 0px;
+    left: 0;
+    right: 0;
     margin: 0 auto;
+    background-color: #9de04a;
+    height: 6px;
+    bottom: -10px;
     border-radius: 20px;
 }
 
+/* ✅ MAIN FIX HERE */
 .about_section_2 {
     width: 100%;
-    float: left;
     background-color: #ffffff;
-    height: auto;
-    background-size: 100%;
+    display: flex;
+    align-items: flex-start; /* aligns image with text */
+    justify-content: space-between;
+    gap: 40px;
+    padding: 50px 0;
+    flex-wrap: wrap;
 }
 
+/* TEXT SIDE */
 .about_taital_main {
-    width: 100%;
-    float: left;
+    flex: 1;
+    min-width: 300px;
 }
 
 .slightly_text {
-    width: 100%;
-    float: left;
     font-size: 30px;
     color: #232222;
     font-weight: bold;
-    margin-top: 60px;
+    margin-top: 0; /* FIXED */
 }
 
 .lorem_text {
-    width: 100%;
-    float: left;
     font-size: 18px;
     color: #232222;
-    margin: 30px 0px 30px 0px;
+    margin: 20px 0;
 }
 
 .readmore_btn {
     width: 170px;
-    float: left;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .readmore_btn a {
     width: 100%;
-    float: left;
+    display: block;
     font-size: 16px;
     color: #fcfcfd;
     background-color: #9de04a;
     text-align: center;
-    padding: 12px 0px;
+    padding: 12px 0;
     border-radius: 5px;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .readmore_btn a:hover {
@@ -560,9 +562,17 @@ button {
     background-color: #232222;
 }
 
+/* IMAGE SIDE */
+.about_img {
+    flex: 1;
+    min-width: 300px;
+}
+
 .about_img img {
     width: 100%;
-    float: left;
+    height: auto;
+    display: block;
+    border-radius: 10px;
 }
 
 
