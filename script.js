@@ -98,14 +98,14 @@ var spinner = function () {
   let targetDate;
 
   if (day < redrawStart) {
-    redrawStatusEl.textContent = "Redraw opens on the 27th";
+    redrawStatusEl.textContent = "Withdrawal opens on the 27th";
     redrawStatusEl.style.color = "#555";
     targetDate = new Date(year, month, redrawStart, 0, 0, 0);
     contributeBtn.disabled = true;
     contributeBtn.style.opacity = "0.5";
   } 
   else if (day >= redrawStart && day <= redrawEnd) {
-    redrawStatusEl.textContent = "Redraw OPEN";
+    redrawStatusEl.textContent = "Withdraw OPEN";
     redrawStatusEl.style.color = "green";
     targetDate = new Date(year, month, redrawEnd, 23, 59, 59);
     contributeBtn.disabled = false;
