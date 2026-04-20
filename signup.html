@@ -244,6 +244,98 @@
             margin-bottom: 0;
         }
 
+        /* ===== TERMS & CONDITIONS SECTION ===== */
+        .terms-container {
+            margin: 1.2rem 0 1.2rem 0;
+            background: rgba(0, 12, 0, 0.5);
+            border-radius: 24px;
+            padding: 1rem 0.8rem 0.8rem 0.8rem;
+            border: 1px solid #2d7a2d;
+        }
+
+        .terms-scroll {
+            max-height: 130px;
+            overflow-y: auto;
+            padding: 0.8rem 1rem;
+            background: #0e1f0e;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+            border: 1px solid #1f5c1f;
+            font-size: 0.8rem;
+            color: #c8e6c8;
+            line-height: 1.5;
+            scrollbar-width: thin;
+            scrollbar-color: #2e9e2e #0e1f0e;
+        }
+
+        .terms-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .terms-scroll::-webkit-scrollbar-track {
+            background: #0e1f0e;
+            border-radius: 20px;
+        }
+
+        .terms-scroll::-webkit-scrollbar-thumb {
+            background: #2e9e2e;
+            border-radius: 20px;
+        }
+
+        .terms-scroll p {
+            margin-bottom: 0.6rem;
+            background: transparent;
+            border: none;
+            padding: 0;
+            text-align: left;
+            backdrop-filter: none;
+            max-width: 100%;
+            font-size: 0.8rem;
+        }
+
+        .terms-scroll strong {
+            color: #b0ffb0;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-left: 0.2rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #2ecc71;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+            background: #172517;
+            border-radius: 6px;
+            border: 2px solid #3aa33a;
+            cursor: pointer;
+            flex-shrink: 0;
+            -webkit-appearance: checkbox;
+            appearance: checkbox;
+        }
+
+        .checkbox-wrapper label {
+            margin: 0;
+            padding: 0;
+            color: #d0f7d0;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-shadow: 0 1px 4px black;
+            cursor: pointer;
+            line-height: 1.3;
+        }
+
+        .checkbox-wrapper label a {
+            border-bottom: 1px solid #27ae60;
+            font-weight: 700;
+        }
+
         /* button */
         button {
             background: linear-gradient(155deg, #0f4f0f, #092009);
@@ -327,16 +419,27 @@
             p {
                 padding: 0.6rem 0.8rem;
             }
+            .terms-scroll {
+                max-height: 120px;
+                font-size: 0.75rem;
+            }
         }
 
         /* improve tap targets */
-        input, select, button, a, legend {
+        input, select, button, a, legend, .checkbox-wrapper {
             touch-action: manipulation;
         }
 
         /* ensure date input has consistent height */
         input[type="date"] {
             min-height: 46px;
+        }
+
+        /* disable button style if needed (not enforced here) */
+        .error-message {
+            color: #ffb0b0;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
         }
     </style>
 </head>
@@ -350,7 +453,9 @@
 
     <h2>✨ CREATE ACCOUNT ✨</h2>
 
-    <form action="dashboard.html" method="get">
+    <form action="dashboard.html" method="get" onsubmit="return validateTerms();">
+        <!-- hidden field to indicate terms accepted -->
+        <input type="hidden" id="termsAcceptedFlag" name="termsAccepted" value="false">
 
         <fieldset>
             <legend>🧾 Personal Info</legend>
@@ -383,11 +488,70 @@
             <input type="date" id="startdate" name="startdate" required>
         </fieldset>
 
+        <!-- TERMS AND CONDITIONS BLOCK -->
+        <div class="terms-container">
+            <div class="terms-scroll">
+                <p><strong>LaniPay Limited</strong> operates multiple digital platforms and community services including but not limited to the LaniPay MLM Network Platform and the LaniPay Community Contribution Platform.</p>
+                <p>The policies, legal rules, and privacy standards described in this document apply to all platforms, services, digital products, and programs introduced or operated by LaniPay Limited unless a specific service provides a separate policy.</p>
+                <p>By using any LaniPay platform or service, users acknowledge and agree to the relevant Terms and Conditions, Privacy Policies, and Disclaimers governing the specific platform they are using.</p>
+                <p>LaniPay Limited reserves the right to introduce additional platforms, programs, and services in the future. These policies may automatically apply to such services unless otherwise stated.</p>
+                <p>Users are responsible for reviewing the applicable policies before participating in any LaniPay program.</p>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                <label for="agreeTerms">I have read and agree to the <a href="#" target="_blank">Terms & Conditions</a> and Privacy Policy.</label>
+            </div>
+        </div>
+
         <button type="submit">Sign Up</button>
 
     </form>
 
     <p>🔐 Already have an account? <a href="login.html">Login here</a></p>
+
+    <script>
+        // Ensure checkbox is checked before submit – also updates hidden field
+        function validateTerms() {
+            const checkbox = document.getElementById('agreeTerms');
+            const hiddenFlag = document.getElementById('termsAcceptedFlag');
+            
+            if (!checkbox.checked) {
+                alert('⚠️ You must agree to the Terms & Conditions to create an account.');
+                return false;  // prevent form submission
+            }
+            
+            // Mark terms as accepted in hidden input (optional)
+            hiddenFlag.value = 'true';
+            return true; // allow submission
+        }
+
+        // Additional small UX: clicking the label link shouldn't uncheck, but keep it accessible
+        // Also set min start date to today (makes sense for contribution)
+        window.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const startDateInput = document.getElementById('startdate');
+            if (startDateInput) {
+                startDateInput.min = today;
+                // Optionally set default to today
+                if (!startDateInput.value) {
+                    startDateInput.value = today;
+                }
+            }
+
+            // If you want to make "Terms & Conditions" link open a modal or something, 
+            // but here it's just a dummy anchor for demonstration (prevents page reload)
+            const termsLink = document.querySelector('.checkbox-wrapper a');
+            if (termsLink) {
+                termsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // you could show a full-screen terms modal – for now just alert
+                    alert('📄 LaniPay Terms & Conditions\n\n' + 
+                        'LaniPay Limited operates multiple digital platforms including the MLM Network and Community Contribution Platform.\n\n' +
+                        'By using any service, you agree to the applicable policies. Full legal text available at LaniPay official channels.');
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
